@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
+import os
 from chat import chat_ai, ChatPayload
 
 app = FastAPI(title="twinAPI", version="0.1.0")
@@ -28,8 +29,8 @@ async def chatPost(payload: ChatPayload):
 
 
 def main():
-    print("Hello from twinAPI!")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
 
 if __name__ == "__main__":
