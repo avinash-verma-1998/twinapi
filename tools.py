@@ -110,11 +110,11 @@ record_user_phone_json = {
 tools = [
     {"type": "function", "function": record_user_details_json},
     {"type": "function", "function": record_unknown_question_json},
-        {"type": "function", "function": record_user_phone_json},
+    {"type": "function", "function": record_user_phone_json},
 ]
 
 tool_map = {
     "record_user_details": record_user_details,
     "record_unknown_question": record_unknown_question,
-        "record_user_phone": record_user_phone,
+    "record_user_phone": record_user_phone,
 }
