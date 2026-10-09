@@ -63,15 +63,7 @@ record_unknown_question_json = {
     },
 }
 
-tools = [
-    {"type": "function", "function": record_user_details_json},
-    {"type": "function", "function": record_unknown_question_json},
-]
 
-tool_map = {
-    "record_user_details": record_user_details,
-    "record_unknown_question": record_unknown_question,
-}
 
 
 def handle_tool_calls(tool_calls):
@@ -86,3 +78,43 @@ def handle_tool_calls(tool_calls):
             {"role": "tool", "content": json.dumps(result), "tool_call_id": tool_call.id}
         )
     return results
+
+def record_user_phone(phone, name="Name not provided", notes="not provided"):
+    push(f"Recording phone contact from {name} with phone {phone} and notes {notes}")
+    return "OK"
+
+record_user_phone_json = {
+    "name": "record_user_phone",
+    "description": "Use this tool to record that a user is interested in being contacted and provided a phone number",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "phone": {
+                "type": "string",
+                "description": "The user's phone number, including country code if provided",
+            },
+            "name": {
+                "type": "string",
+                "description": "The user's name, if they provided it",
+            },
+            "notes": {
+                "type": "string",
+                "description": "Additional context about the conversation",
+            },
+        },
+        "required": ["phone"],
+        "additionalProperties": False,
+    },
+}
+
+tools = [
+    {"type": "function", "function": record_user_details_json},
+    {"type": "function", "function": record_unknown_question_json},
+        {"type": "function", "function": record_user_phone_json},
+]
+
+tool_map = {
+    "record_user_details": record_user_details,
+    "record_unknown_question": record_unknown_question,
+        "record_user_phone": record_user_phone,
+}
