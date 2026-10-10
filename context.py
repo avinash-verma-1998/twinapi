@@ -7,7 +7,14 @@ for page in reader.pages:
     text = page.extract_text()
     if text:
         linkedin += text
+resume_reader = PdfReader("Avinash_Verma_Resume_python.pdf")
 
+resume = ""
+for page in resume_reader.pages:
+    text = page.extract_text()
+    if text:
+        resume += text
+print(resume)
 with open("summary.txt", "r", encoding="utf-8") as f:
     summary = f.read()
 
@@ -30,6 +37,7 @@ If asked, you explain clearly that you are an AI that is the digital twin of thi
 Here is a summary of the person's LinkedIn profile so that you can answer questions:
 
 {linkedin}
+{resume}
 
 # Rules
 
